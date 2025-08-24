@@ -6,13 +6,13 @@ Maria Luiza Pereto – RA: 1138637
 
 Jamile Rockenbach Ferreira – RA: 1137704
 
-Leonardo Manfroi Zancanaro - RA: 1137646
+Leonardo Manfroi Zancanaro – RA: 1137646
 
 Maria Eduarda Moura Laimer – RA: 1137846 
 
-Rafaela Bilibio Da Silva - RA: 1137885
+Rafaela Bilibio Da Silva – RA: 1137885
 
-Kauê Anacleto Saggiorato - RA: 1137645
+Kauê Anacleto Saggiorato – RA: 1137645
 
 📌 Descrição do Projeto
 
@@ -74,3 +74,4 @@ Organização e abstração na programação
 Conceitos de POO
 
 Aplicação de estruturas de dados em um problema realista
+
