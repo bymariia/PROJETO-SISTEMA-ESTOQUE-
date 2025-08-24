@@ -1,5 +1,5 @@
 from recursos import Fila, Pilha
-from defs import erro
+from defs import erro, acerto
 
 class Cliente:
     def __init__(self, nome, id):
@@ -26,9 +26,14 @@ class Sistema:
         self.pilha_operacoes = Pilha()
    
     def cadastrar_cliente(self, nome, id):
+        if id in self.clientes:
+            erro("ID ja cadastrado.")
+            return False
         cliente = Cliente(nome, id)
         self.clientes[id] = cliente
         self.pilha_operacoes.empilhar(("cliente", cliente))
+        acerto(f"Cliente '{nome}' cadastrado com sucesso!")
+        return True
        
     def listar_cliente(self):
         if not self.clientes:
@@ -36,67 +41,78 @@ class Sistema:
             return
         for cliente in self.clientes.values():
             print(cliente)
+
     def cadastrar_produto(self, nome, preco, quantidade, id):
+        if id in self.produtos:
+            erro("ID ja cadastrado.")
+            return False
         produto = Produto(nome, preco, quantidade, id)
         self.produtos[id] = (produto)
         self.pilha_operacoes.empilhar(("produto", produto))
-
+        return True
 
     def listar_produtos(self):
         if not self.produtos:
             erro("Nenhum produto cadastrado.")
-            return
-        else:
-            return list(self.produtos.values())  
+            return []
+        for p in self.produtos.values():
+            print(p)
+        return list(self.produtos.values())
+    
+    def total_estoque(self):
+        return sum(p.preco * p.quantidade for p in self.produtos.values())
 
     def realizar_venda(self):
-
-        #Verificar se tem produtos e clientes cadastrados
+        #Verificar se tem produtos/clientes cadastrados:
         if not self.produtos:
             erro("Nenhum produto cadastrado.")
-            return
+            return False
         if not self.clientes:
             erro("Nenhum cliente cadastrado.")
-            return
+            return True
 
-        #Verificar se os clientes e produtos existem
-        id_cliente = input("Digite o ID do cliente: ")
+        #Verificar se os clientes/produtos existem:
+        id_cliente = input(" ↪︎ Digite o ID do cliente: ")
         if id_cliente not in self.clientes:
             erro("Cliente inexistente.")
-            return
+            return False
 
         cliente = self.clientes[id_cliente]
 
-        id_produto = input("Digite o ID do produto: ")
+        id_produto = input(" ↪︎ Digite o ID do produto: ")
         if id_produto not in self.produtos:
             erro("Produto inexistente.")
-            return
+            return False
         produto = self.produtos[id_produto]
 
-        quantidade_vendida = int(input("Digite a quantidade: "))
-
-        #Verificar se a quantidade do produto existe
+        try:
+            quantidade_vendida = int(input(" ↪︎ Digite a quantidade: "))
+        except ValueError:
+            erro("Quantidade inválida.")
+            return False
+        
+        #Verificar se a quantidade do produto existe:
         if quantidade_vendida > produto.quantidade:
             erro("Quantidade insuficiente.")
-            return
-        #Remover a quantidade do produto do estoque
+            return False
+        #Remover a quantidade do produto do estoque:
         produto.quantidade -= quantidade_vendida
 
-        #somar preço
+        #somar preço:
         preco_total = produto.preco * quantidade_vendida
 
-        #adicionar a venda na fila
+        #adicionar a venda na fila:
         venda = (cliente, produto, quantidade_vendida, preco_total)
         self.fila_vendas.enfileirar(venda)
         self.pilha_operacoes.empilhar(("venda", venda))
-       
-        print(f"Venda do produto {produto.nome} e ID {produto.id} com quantidade {quantidade_vendida} realizada para o cliente {cliente.nome} no total de R${preco_total} reais.")
-       
+        acerto(f"Venda de {quantidade_vendida} unidades de {produto.nome} para {cliente.nome} no total de R${preco_total} realizada.")
+        return True
+    
     def ver_fila_vendas(self):
         if self.fila_vendas.esta_vazia():
             erro("Nenhuma venda realizada.")
             return
-        print("Fila de vendas:")
+        print(" ↪︎ Fila de vendas:")
         self.fila_vendas.listar()
        
     def desfazer_ultima_operacao(self):
@@ -112,6 +128,10 @@ class Sistema:
             venda = operacao[1]
             produto = venda[1]
             produto.quantidade += venda[2]
+            try:
+                self.fila_vendas.itens.remove(venda)
+            except ValueError:
+                pass
 
         print(f"Operação {operacao[0]} desfeita.")
     def exibir_valor_total_vendas(self):
@@ -121,4 +141,5 @@ class Sistema:
         print(f"Valor total de vendas: R${total} reais.")
 
     def __str__(self):
+        
         return f"Clientes: {self.clientes} Produtos: {self.produtos} Fila de vendas: {self.fila_vendas} Pilha de operações: {self.pilha_operacoes}"

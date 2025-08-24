@@ -1,8 +1,10 @@
 import os
 from defs import erro, acerto
-from recursos import Pilha, Fila
-from classes import Sistema, Cliente, Produto
-Sistema = Sistema()
+from classes import Sistema
+sistema = Sistema()
+os.system('cls')
+
+#Arrumar opções 3 e 8!!! Fazer coisas que valem pontos extras(arquivo .txt + pesquisa por nome/id)
 
 while True: 
     print('''
@@ -27,74 +29,84 @@ while True:
         nome_cliente = input('''⋰――――――――――――――――⋯ ESCOLHA 1 ⋯――――――――――――――――⋱
  ↪︎ Digite o nome do cliente: ''')
         id_cliente = input(" ↪︎ Digite o ID do cliente: ")
-        Sistema.cadastrar_cliente(nome_cliente, id_cliente)
-        acerto(f"Cliente '{nome_cliente}' cadastrado com sucesso!")
+        sistema.cadastrar_cliente(nome_cliente, id_cliente)
 
     elif escolha_menu == "2": 
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 2 ⋯――――――――――――――――⋱
  ↪︎ Clientes cadastrados: ''')
-        Sistema.listar_cliente()
+        sistema.listar_cliente()
+        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
     elif escolha_menu == "3": # TEM Q FAZER !!!
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 3 ⋯――――――――――――――――⋱
  ↪︎ Clientes cadastrados e totais gastos: ''')
+        
+        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
         #COLOCAR O TOTAL DE GASTOS!!!
-
         
     elif escolha_menu == "4": 
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 4 ⋯――――――――――――――――⋱''')
         nome = input(" ↪︎ Digite o nome do produto: ")
-        quantidade = int(input("↪︎ Digite a quantidade: "))
-        preco = float(input("↪︎ Digite o valor unitário: ")) 
-        id_produto = input("↪︎ Digite o ID do produto: ")
-        Sistema.cadastrar_produto(nome, preco, quantidade, id_produto)
+        try:
+            quantidade = int(input(" ↪︎ Digite a quantidade: "))
+        except ValueError:
+            erro("Quantidade inválida.")
+            continue
+        try:
+            preco = float(input(" ↪︎ Digite o valor unitário: ")) 
+        except ValueError:
+            erro("Preço inválido.")
+            continue
+        id_produto = input(" ↪︎ Digite o ID do produto: ")
+        sistema.cadastrar_produto(nome, preco, quantidade, id_produto)
         acerto(f"Produto '{nome}' cadastrado com sucesso!")
         
     elif escolha_menu == "5":
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 5 ⋯――――――――――――――――⋱
- ↪︎ Produtos cadastrados:
-⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        Sistema.listar_produtos()
+ ↪︎ Produtos cadastrados: ''')
+        sistema.listar_produtos()
+        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
         
-    elif escolha_menu == "6": # TEM Q ARRUMAR!!!
+    elif escolha_menu == "6": 
         os.system('cls')
-        print('''⋰――――――――――――――――⋯ ESCOLHA 6 ⋯――――――――――――――――⋱
- ↪︎ Produtos cadastrados:
-⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        if not Sistema.listar_produtos:
+        print('''⋰――――――――――――――――⋯ ESCOLHA 6 ⋯――――――――――――――――⋱''')
+        if not sistema.listar_produtos:
             erro("Nenhum produto cadastrado.")
         else:
-            total = sum(p.preco * p.quantidade for p in Produto)
-            print(f"↪︎ Valor total do estoque: R${total:.2f}")
+            total = sistema.total_estoque()
+            print(f" ↪︎ Valor total do estoque: R${total:.2f}")
+            print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
     elif escolha_menu == "7":
         os.system('cls')
-        print('''⋰――――――――――――――――⋯ ESCOLHA 7 ⋯――――――――――――――――⋱
- ↪︎ Valor total do estoque:
-⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        Sistema.realizar_venda()
+        print('''⋰――――――――――――――――⋯ ESCOLHA 7 ⋯――――――――――――――――⋱''')
+        sistema.realizar_venda()
         
     elif escolha_menu == "8":   # TEM QUE ARRUMAR TA APARECENDO ESTRANHO !!!!
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 8 ⋯――――――――――――――――⋱
- ↪︎ Vendas realizadas:
-⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        Sistema.ver_fila_vendas()
+ ↪︎ Vendas realizadas: ''')
+        sistema.ver_fila_vendas()
+        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
+        
         
     elif escolha_menu == "9":
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 9 ⋯――――――――――――――――⋱
- ↪︎ Valor total de vendas realizadas:
-⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        Sistema.exibir_valor_total_vendas()
+ ↪︎ Valor total de vendas realizadas: ''')
+        sistema.exibir_valor_total_vendas()
+        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
+
 
     elif escolha_menu == "10": 
         os.system('cls')
-        Sistema.desfazer_ultima_operacao()
+        print('''⋰―――――――――――――――⋯ ESCOLHA 10 ⋯――――――――――――――――⋱''')
+        sistema.desfazer_ultima_operacao()
+        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
     elif escolha_menu == "11": 
         os.system('cls')
