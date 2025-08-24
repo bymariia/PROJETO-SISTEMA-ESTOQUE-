@@ -28,6 +28,23 @@ O objetivo principal é fixar os conceitos de POO, listas, pilhas e filas em um 
 
 ---
 
+### 🎯 Objetivo Acadêmico:
+
+Este trabalho foi desenvolvido na matéria Organização e Abstração na Programação do curso Ciência da Computação coordenado pelo professor Augusto Ortolan, com exercício prático para consolidar o aprendizado em:
+ - Organização e abstração na programação.
+ - Conceitos de POO.
+ - Aplicação de estruturas de dados em um problema realista.
+
+---
+
+### 🛠️ Tecnologias Utilizadas:
+
+ - Linguagem: Python.
+ - Paradigma: Programação Orientada a Objetos (POO).
+ - Estruturas de Dados: Lista, Pilha e Fila.
+
+---
+
 ### ⚙️ Funcionalidades Implementadas:
 
 ➕ Cadastrar cliente
@@ -61,22 +78,5 @@ O programa é executado diretamente no terminal.
 Durante a execução, será exibido um menu interativo com as opções acima.
 
 O usuário pode navegar pelas opções digitando o número correspondente.
-
----
-
-### 🛠️ Tecnologias Utilizadas:
-
- - Linguagem: Python.
- - Paradigma: Programação Orientada a Objetos (POO).
- - Estruturas de Dados: Lista, Pilha e Fila.
-
----
-
-### 🎯 Objetivo Acadêmico:
-
-Este trabalho foi desenvolvido na matéria Organização e Abstração na Programação do curso Ciência da Computação coordenado pelo professor Augusto Ortolan, com exercício prático para consolidar o aprendizado em:
- - Organização e abstração na programação.
- - Conceitos de POO.
- - Aplicação de estruturas de dados em um problema realista.
 
 ---
