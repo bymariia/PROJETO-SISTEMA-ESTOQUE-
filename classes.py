@@ -1,5 +1,6 @@
 from recursos import Fila, Pilha
 from defs import erro
+
 class Cliente:
     def __init__(self, nome, id):
         self.nome = nome
@@ -45,12 +46,10 @@ class Sistema:
         if not self.produtos:
             erro("Nenhum produto cadastrado.")
             return
-        for produto in self.produtos.values():
-            print(produto)
-
+        else:
+            return list(self.produtos.values())  
 
     def realizar_venda(self):
-
 
         #Verificar se tem produtos e clientes cadastrados
         if not self.produtos:
@@ -60,16 +59,13 @@ class Sistema:
             erro("Nenhum cliente cadastrado.")
             return
 
-
         #Verificar se os clientes e produtos existem
         id_cliente = input("Digite o ID do cliente: ")
         if id_cliente not in self.clientes:
             erro("Cliente inexistente.")
             return
 
-
         cliente = self.clientes[id_cliente]
-
 
         id_produto = input("Digite o ID do produto: ")
         if id_produto not in self.produtos:
@@ -77,9 +73,7 @@ class Sistema:
             return
         produto = self.produtos[id_produto]
 
-
         quantidade_vendida = int(input("Digite a quantidade: "))
-
 
         #Verificar se a quantidade do produto existe
         if quantidade_vendida > produto.quantidade:
@@ -88,10 +82,8 @@ class Sistema:
         #Remover a quantidade do produto do estoque
         produto.quantidade -= quantidade_vendida
 
-
         #somar preço
         preco_total = produto.preco * quantidade_vendida
-
 
         #adicionar a venda na fila
         venda = (cliente, produto, quantidade_vendida, preco_total)
@@ -100,8 +92,6 @@ class Sistema:
        
         print(f"Venda do produto {produto.nome} e ID {produto.id} com quantidade {quantidade_vendida} realizada para o cliente {cliente.nome} no total de R${preco_total} reais.")
        
-
-
     def ver_fila_vendas(self):
         if self.fila_vendas.esta_vazia():
             erro("Nenhuma venda realizada.")
@@ -122,7 +112,6 @@ class Sistema:
             venda = operacao[1]
             produto = venda[1]
             produto.quantidade += venda[2]
-
 
         print(f"Operação {operacao[0]} desfeita.")
     def exibir_valor_total_vendas(self):
