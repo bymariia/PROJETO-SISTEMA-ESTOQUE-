@@ -74,7 +74,7 @@ O usuário pode navegar pelas opções digitando o número correspondente.
 
 ### 🎯 Objetivo Acadêmico:
 
-Este trabalho foi desenvolvido na matéria Organização e Abstração na Programação do curso Ciência da Computação com exercício prático para consolidar o aprendizado em:
+Este trabalho foi desenvolvido na matéria Organização e Abstração na Programação do curso Ciência da Computação coordenado pelo professor Augusto Ortolan, com exercício prático para consolidar o aprendizado em:
  - Organização e abstração na programação.
  - Conceitos de POO.
  - Aplicação de estruturas de dados em um problema realista.
