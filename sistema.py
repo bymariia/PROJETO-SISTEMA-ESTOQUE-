@@ -2,11 +2,6 @@ import os
 from defs import erro, acerto
 from recursos import Pilha, Fila
 
-#LISTA de produtos do estoque/FILA para registrar vendas em ordem de chegada/PILHA para desfazer a última operação.
-lista_produtos = []
-fila_vendas = Fila()
-pilha_operacoes = Pilha()
-
 while True: #Esse é o menu principal do estoque:
     print('''
 ⋰―――――――――――――――⋯ MENU ESTOQUE ⋯――――――――――――――⋱
