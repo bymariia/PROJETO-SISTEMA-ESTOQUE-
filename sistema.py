@@ -1,10 +1,13 @@
 import os
 from defs import erro, acerto
-from classes import Sistema
+from classes import Sistema, Cliente, Produto, Venda
+
+
 sistema = Sistema()
+sistema.carregar_dados_arquivos() # Carrega os dados dos arquivos
 os.system('cls')
 
-#Arrumar opções 3 e 8!!! Fazer coisas que valem pontos extras(arquivo .txt + pesquisa por nome/id)
+#Arrumar opções 3 !!! Fazer coisas que valem pontos extras( pesquisa por nome/id)
 
 while True: 
     print('''
@@ -19,7 +22,7 @@ while True:
  8- Visualizar fila de vendas.
  9- Exibir valor total de vendas realizadas.
  10- Desfazer última operação.
- 11- Sair.
+ 0- Sair.
 ⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰
 ''')
     escolha_menu = input(" ✎  Digite sua escolha: ")
@@ -74,7 +77,7 @@ while True:
     elif escolha_menu == "6": 
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 6 ⋯――――――――――――――――⋱''')
-        if not sistema.listar_produtos:
+        if not sistema.produtos:
             erro("Nenhum produto cadastrado.")
         else:
             total = sistema.total_estoque()
@@ -85,8 +88,9 @@ while True:
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 7 ⋯――――――――――――――――⋱''')
         sistema.realizar_venda()
+        acerto("Venda realizada com sucesso!")
         
-    elif escolha_menu == "8":   # TEM QUE ARRUMAR TA APARECENDO ESTRANHO !!!!
+    elif escolha_menu == "8":   
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 8 ⋯――――――――――――――――⋱
  ↪︎ Vendas realizadas: ''')
@@ -108,9 +112,10 @@ while True:
         sistema.desfazer_ultima_operacao()
         print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
-    elif escolha_menu == "11": 
+    elif escolha_menu == "0": 
         os.system('cls')
-        print('''⋰―――――――――――――――⋯ ESCOLHA 11 ⋯――――――――――――――――⋱
+        sistema.salvar_dados() # Salva os dados antes de sair
+        print('''⋰―――――――――――――――⋯ ESCOLHA 0 ⋯――――――――――――――――⋱
  ↪︎ Saindo...
 ⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
         break
