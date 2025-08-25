@@ -57,7 +57,7 @@ class Sistema:
 
     def cadastrar_produto(self, nome, preco, quantidade, id):
         if id in self.produtos:
-            erro("ID ja cadastrado.")
+            erro("ID já cadastrado.")
             return False
         produto = Produto(nome, preco, quantidade, id)
         self.produtos[id] = produto
@@ -153,18 +153,17 @@ class Sistema:
                     self.fila_vendas.itens.remove(venda)
             except ValueError:
                 erro("Venda inexistente.")
-            acerto(f"Venda de '{venda.cliente.nome}' para '{venda.produto.nome}' desfeita.")
-        print(f"Operação {operacao_tipo} desfeita.")
+            acerto(f"Venda de '{venda.produto.nome}' para '{venda.cliente.nome}' desfeita.")
 
     def exibir_valor_total_vendas(self):
         total = 0
         for venda in self.fila_vendas.itens:
             total += venda.total
-        print(f"Valor total de vendas: R${total:.2f} reais.")
+        print(f"Valor total de vendas: R${total:.2f}.")
 
     def salvar_dados(self, clientes_path="clientes.txt", produtos_path="produtos.txt", vendas_path="vendas.txt"):
 
-        #salvar clientes
+        #salvar clientes:
         try:
             with open(clientes_path, "w", encoding="utf-8") as arquivo:
                 for id, cliente in self.clientes.items():
@@ -173,7 +172,7 @@ class Sistema:
         except IOError as e:
             erro(f"Erro ao salvar clientes: {e}")
 
-        #salvar produtos
+        #salvar produtos:
         try:
             with open(produtos_path, "w", encoding="utf-8") as arquivo:
                 for id, produto in self.produtos.items():
@@ -182,7 +181,7 @@ class Sistema:
         except IOError as e:
             erro(f"Erro ao salvar produtos: {e}")
 
-        #salvar vendas
+        #salvar vendas:
         try:
             with open(vendas_path, "w", encoding="utf-8") as arquivo:
                 for venda in self.fila_vendas.itens:
@@ -193,7 +192,7 @@ class Sistema:
 
     def carregar_dados_arquivos(self, clientes_path="clientes.txt", produtos_path="produtos.txt", vendas_path="vendas.txt"):
 
-        # carregar clientes
+        # carregar clientes:
         if os.path.exists(clientes_path):
             try:
                 with open(clientes_path, "r", encoding="utf-8") as arquivo:
@@ -201,7 +200,7 @@ class Sistema:
                         partes = linha.strip().split(",")
                         if len(partes) == 3:
                             cliente_id, nome, gasto = partes
-                            cliente = Cliente(nome, cliente.id)
+                            cliente = Cliente(nome, cliente_id)
                             cliente.total_gasto = float(gasto)
                             self.clientes[cliente_id] = cliente
                 acerto(f"Clientes carregados do arquivo '{clientes_path}'.")
@@ -211,7 +210,7 @@ class Sistema:
             print(" ↪︎ Nenhum arquivo de clientes encontrado. Iniciando com clientes vazios.")
 
 
-        # carregar produtos
+        # carregar produtos:
         if os.path.exists(produtos_path):
             try:
                 with open(produtos_path, 'r', encoding='utf-8') as arquivo:
@@ -227,7 +226,7 @@ class Sistema:
         else:
             print(" ↪︎ Nenhum arquivo de produtos encontrado. Iniciando com produtos vazios.")
 
-        # Carregar vendas
+        # Carregar vendas:
         if os.path.exists(vendas_path):
             try:
                 with open(vendas_path, 'r', encoding='utf-8') as arquivo:
@@ -250,5 +249,54 @@ class Sistema:
         else:
             print(" ↪︎ Nenhum arquivo de vendas encontrado. Iniciando com vendas vazias.")
 
+    def ver_clientes_gastos(self):
+        for id, cliente in self.clientes.items():
+            print(f"Cliente: {cliente.nome} ⋯ Total gasto: R${cliente.total_gasto:.2f}")
+        if not self.clientes:
+            erro("Nenhum cliente cadastrado.")
+
     def __str__(self):
         return f"Clientes: {self.clientes} Produtos: {self.produtos} Fila de vendas: {self.fila_vendas} Pilha de operações: {self.pilha_operacoes}"
+    
+    def procurar(self): #Fazer uma pesquisa de clientes ou produtos.
+        print('''⋰―――――――――――――――⋯ ESCOLHA 11 ⋯――――――――――――――――⋱''')
+        print(''' 1- Procurar por ID de cliente.
+ 2- Procurar por nome de cliente.
+ 3- Procurar por ID de produto.
+ 4- Procurar por nome de produto.''')
+        print('⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
+        procura = input(" ✎  Digite sua escolha: ")
+        
+        if procura == "1":
+            id_cliente = input(" ↪︎ Digite o ID do cliente: ")
+            for id, cliente in self.clientes.items():
+                if id == id_cliente:
+                    acerto(f"Cliente encontrado: {cliente} ⋯ {id}.")
+            else:
+                erro("Cliente não encontrado.")
+
+        elif procura == "2":
+            nome_cliente = input(" ↪︎ Digite o nome do cliente: ")
+            for id, cliente in self.clientes.items():
+                if cliente.nome == nome_cliente:
+                    acerto(f"Cliente encontrado: {cliente} ⋯ {id}.")
+            else:
+                erro("Cliente não encontrado.")
+
+        elif procura == "3":
+            id_produto = input(" ↪︎ Digite o ID do produto: ")
+            for id, produto in self.produtos.items():
+                if id == id_produto:
+                    acerto(f"Produto encontrado: {produto} ⋯ {id}.")
+            else:
+                erro("Produto não encontrado.")
+        
+        elif procura == "4":
+            nome_produto = input(" ↪︎ Digite o nome do produto: ")
+            for id, produto in self.produtos.items():
+                if produto.nome == nome_produto:
+                    acerto(f"Produto encontrado: {produto} ⋯ {id}.")
+            else:
+                erro("Produto não encontrado.")
+        else:
+            erro("Opção inválida.")

@@ -22,7 +22,8 @@ while True:
  8- Visualizar fila de vendas.
  9- Exibir valor total de vendas realizadas.
  10- Desfazer última operação.
- 0- Sair.
+ 11- Procurar.
+ 12- Salvar e sair.
 ⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰
 ''')
     escolha_menu = input(" ✎  Digite sua escolha: ")
@@ -39,15 +40,12 @@ while True:
         print('''⋰――――――――――――――――⋯ ESCOLHA 2 ⋯――――――――――――――――⋱
  ↪︎ Clientes cadastrados: ''')
         sistema.listar_cliente()
-        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-
-    elif escolha_menu == "3": # TEM Q FAZER !!!
+        
+    elif escolha_menu == "3":
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 3 ⋯――――――――――――――――⋱
  ↪︎ Clientes cadastrados e totais gastos: ''')
-        
-        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        #COLOCAR O TOTAL DE GASTOS!!!
+        sistema.ver_clientes_gastos()
         
     elif escolha_menu == "4": 
         os.system('cls')
@@ -72,7 +70,6 @@ while True:
         print('''⋰――――――――――――――――⋯ ESCOLHA 5 ⋯――――――――――――――――⋱
  ↪︎ Produtos cadastrados: ''')
         sistema.listar_produtos()
-        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
         
     elif escolha_menu == "6": 
         os.system('cls')
@@ -82,7 +79,6 @@ while True:
         else:
             total = sistema.total_estoque()
             print(f" ↪︎ Valor total do estoque: R${total:.2f}")
-            print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
     elif escolha_menu == "7":
         os.system('cls')
@@ -95,27 +91,28 @@ while True:
         print('''⋰――――――――――――――――⋯ ESCOLHA 8 ⋯――――――――――――――――⋱
  ↪︎ Vendas realizadas: ''')
         sistema.ver_fila_vendas()
-        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
-        
         
     elif escolha_menu == "9":
         os.system('cls')
         print('''⋰――――――――――――――――⋯ ESCOLHA 9 ⋯――――――――――――――――⋱
  ↪︎ Valor total de vendas realizadas: ''')
         sistema.exibir_valor_total_vendas()
-        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
 
     elif escolha_menu == "10": 
         os.system('cls')
         print('''⋰―――――――――――――――⋯ ESCOLHA 10 ⋯――――――――――――――――⋱''')
         sistema.desfazer_ultima_operacao()
-        print('''⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
 
-    elif escolha_menu == "0": 
+
+    elif escolha_menu == "11": 
+        os.system('cls')
+        sistema.procurar()
+
+    elif escolha_menu == "12": 
         os.system('cls')
         sistema.salvar_dados() # Salva os dados antes de sair
-        print('''⋰―――――――――――――――⋯ ESCOLHA 0 ⋯――――――――――――――――⋱
+        print('''⋰―――――――――――――――⋯ ESCOLHA 12 ⋯――――――――――――――――⋱
  ↪︎ Saindo...
 ⋱――――――――――――――――――――――⋯――――――――――――――――――――――⋰''')
         break
